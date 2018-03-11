@@ -27,6 +27,8 @@ namespace {
 
     $pdo = new PDO('pgsql:dbname=prooph;host=127.0.0.1', 'prooph', 'prooph');
 
+//    $pdo->exec('SET search_path TO public');
+
     $eventStore = new PostgresEventStore(new FQCNMessageFactory(), $pdo, new PostgresAggregateStreamStrategy());
     $eventEmitter = new ProophActionEventEmitter();
     $eventStore = new ActionEventEmitterEventStore($eventStore, $eventEmitter);
