@@ -13,9 +13,9 @@ namespace {
     use Prooph\Common\Event\ProophActionEventEmitter;
     use Prooph\Common\Messaging\FQCNMessageFactory;
     use Prooph\EventStore\ActionEventEmitterEventStore;
-    use Prooph\EventStore\Pdo\MySqlEventStore;
-    use Prooph\EventStore\Pdo\PersistenceStrategy\MySqlAggregateStreamStrategy;
-    use Prooph\EventStore\Pdo\Projection\MySqlProjectionManager;
+    use Prooph\EventStore\Pdo\PersistenceStrategy\PostgresAggregateStreamStrategy;
+    use Prooph\EventStore\Pdo\PostgresEventStore;
+    use Prooph\EventStore\Pdo\Projection\PostgresProjectionManager;
     use Prooph\EventStoreBusBridge\EventPublisher;
     use Prooph\ServiceBus\CommandBus;
     use Prooph\ServiceBus\EventBus;
@@ -25,8 +25,9 @@ namespace {
 
     include "./vendor/autoload.php";
 
-    $pdo = new PDO('mysql:dbname=prooph;host=localhost', 'root', '');
-    $eventStore = new MySqlEventStore(new FQCNMessageFactory(), $pdo, new MySqlAggregateStreamStrategy());
+    $pdo = new PDO('pgsql:dbname=prooph;host=127.0.0.1', 'prooph', 'prooph');
+
+    $eventStore = new PostgresEventStore(new FQCNMessageFactory(), $pdo, new PostgresAggregateStreamStrategy());
     $eventEmitter = new ProophActionEventEmitter();
     $eventStore = new ActionEventEmitterEventStore($eventStore, $eventEmitter);
 
@@ -37,7 +38,7 @@ namespace {
     $pdoSnapshotStore = new PdoSnapshotStore($pdo);
     $userRepository = new UserRepository($eventStore, $pdoSnapshotStore);
 
-    $projectionManager = new MySqlProjectionManager($eventStore, $pdo);
+    $projectionManager = new PostgresProjectionManager($eventStore, $pdo);
 
     $commandBus = new CommandBus();
     $router = new CommandRouter();
