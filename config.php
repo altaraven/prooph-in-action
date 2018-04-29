@@ -25,7 +25,7 @@ namespace {
 
     include "./vendor/autoload.php";
 
-    $pdo = new PDO('pgsql:dbname=prooph;host=127.0.0.1', 'prooph', 'prooph');
+    $pdo = new PDO('pgsql:dbname=cqrs;host=127.0.0.1', 'root', 'w9KQUI');
 
 //    $pdo->exec('SET search_path TO public');
 
