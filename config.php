@@ -25,7 +25,8 @@ namespace {
 
     include "./vendor/autoload.php";
 
-    $pdo = new PDO('pgsql:dbname=cqrs;host=127.0.0.1', 'root', 'w9KQUI');
+    $pdo = new PDO('pgsql:dbname=cqrs;host=127.0.0.1', 'makhorin', 'w9KQUI');
+//    $pdo = new PDO('mysql:dbname=cqrs;host=127.0.0.1', 'root', 'w9KQUI');
 
 //    $pdo->exec('SET search_path TO public');
 
@@ -54,5 +55,5 @@ namespace {
     $eventRouter->route(UserRegistered::class)->to([$userProjector, 'onUserRegistered']);
     $eventRouter->attachToMessageBus($eventBus);
 
-    $userId = '20';
+    $userId = '30';
 }

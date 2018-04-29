@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS "event_streams";
 CREATE TABLE "event_streams" (
-  "no"               BIGINT                 NOT NULL PRIMARY KEY,
+  "no"               SERIAL                 NOT NULL PRIMARY KEY,
   "real_stream_name" CHARACTER VARYING(150) NOT NULL,
   "stream_name"      CHARACTER VARYING(41)  NOT NULL,
   "metadata"         JSONB                  DEFAULT NULL,
@@ -12,7 +12,7 @@ CREATE INDEX "ix_cat"
 
 DROP TABLE IF EXISTS "projections";
 CREATE TABLE "projections" (
-  "no"           BIGINT                 NOT NULL PRIMARY KEY,
+  "no"           SERIAL                 NOT NULL PRIMARY KEY,
   "name"         CHARACTER VARYING(150) NOT NULL,
   "position"     JSONB                 DEFAULT NULL,
   "state"        JSONB                 DEFAULT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE "projections" (
 
 DROP TABLE IF EXISTS "read_users";
 CREATE TABLE "read_users" (
-  "id"       INT NOT NULL PRIMARY KEY,
+  "id"       SERIAL NOT NULL PRIMARY KEY,
   "email"    CHARACTER VARYING(45) DEFAULT NULL,
   "password" CHARACTER VARYING(45) DEFAULT NULL
 );
